@@ -1,13 +1,16 @@
 name: Publier le livre
 
-# Construit le livre et le publie sur GitHub Pages à chaque push sur main
+# À chaque push sur main :
+#  1. construit le livre et le publie sur GitHub Pages ;
+#  2. génère les notebooks Colab et les pousse sur la branche `notebooks`
+#     (les boutons « Ouvrir dans Colab » du livre pointent vers cette branche).
 on:
   push:
     branches: [main]
   workflow_dispatch:  # permet aussi de lancer la publication à la main
 
 permissions:
-  contents: read
+  contents: write   # pour pousser la branche `notebooks`
   pages: write
   id-token: write
 
@@ -37,6 +40,24 @@ jobs:
 
       - name: Construire le livre
         run: jupyter-book build .
+
+      - name: Générer les notebooks pour Colab
+        run: python scripts/make_notebooks.py _build/notebooks
+
+      - name: Faire pointer les boutons Colab vers les notebooks
+        run: |
+          find _build/html -name '*.html' -exec sed -i -E \
+            's#(colab\.research\.google\.com/github/[^/]+/[^/]+/blob/)main/(content/[A-Za-z0-9_-]+)\.md#\1notebooks/\2.ipynb#g' {} +
+
+      - name: Pousser les notebooks sur la branche `notebooks`
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: notebooks
+          publish_dir: ./_build/notebooks
+          force_orphan: true
+          enable_jekyll: true   # pas de fichier .nojekyll inutile
+          commit_message: "Notebooks générés depuis"
 
       - uses: actions/upload-pages-artifact@v3
         with:
