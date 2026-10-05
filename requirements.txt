@@ -1,0 +1,10 @@
+jupyter-book<2
+sphinx-book-theme
+docutils==0.20.1
+keras
+torch
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn

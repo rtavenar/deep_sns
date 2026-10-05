@@ -1,0 +1,47 @@
+# Version simplifiée (et en français) de « Introduction au Deep Learning »
+# Construction : make html  (voir README.md)
+
+title: "Deep learning : les bases"
+author: Romain Tavenard
+copyright: "2026"
+
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    nb_merge_streams: true
+    language: "fr"
+    html_show_copyright: false
+    nb_code_prompt_show: "Afficher le code"
+    nb_code_prompt_hide: "Masquer le code"
+
+parse:
+  myst_enable_extensions:
+    - dollarmath
+    - amsmath
+    - colon_fence
+    - deflist
+
+execute:
+  execute_notebooks: force
+  timeout: -1
+only_build_toc_files: true
+
+# À adapter si le livre est mis sur GitHub
+# (active les boutons « ouvrir dans Colab » en haut de chaque page)
+# repository:
+#   url: https://github.com/rtavenar/deep_sns
+#   branch: main
+# launch_buttons:
+#   colab_url: "https://colab.research.google.com"
+
+html:
+  use_issues_button: false
+  use_repository_button: false
+  extra_footer: |
+      <div>Version complète (en anglais et en français) :
+      <a href="https://rtavenar.github.io/deep_book/">rtavenar.github.io/deep_book</a></div>
+
+latex:
+  latex_documents:
+    targetname: book.tex
+  latex_engine: xelatex

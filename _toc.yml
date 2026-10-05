@@ -1,0 +1,8 @@
+format: jb-book
+root: content/intro
+chapters:
+- file: content/donnees
+- file: content/perceptron
+- file: content/mlp
+- file: content/convnets
+- file: content/glossaire
