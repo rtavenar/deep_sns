@@ -26,17 +26,16 @@ execute:
   timeout: -1
 only_build_toc_files: true
 
-# À adapter si le livre est mis sur GitHub
-# (active les boutons « ouvrir dans Colab » en haut de chaque page)
-# repository:
-#   url: https://github.com/rtavenar/deep_sns
-#   branch: main
-# launch_buttons:
-#   colab_url: "https://colab.research.google.com"
+# Lien vers le dépôt + bouton « ouvrir dans Colab » en haut de chaque page
+repository:
+  url: https://github.com/rtavenar/deep_sns
+  branch: main
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
 
 html:
   use_issues_button: false
-  use_repository_button: false
+  use_repository_button: true
   extra_footer: |
       <div>Version complète (en anglais et en français) :
       <a href="https://rtavenar.github.io/deep_book/">rtavenar.github.io/deep_book</a></div>
