@@ -4,5 +4,7 @@ chapters:
 - file: content/donnees
 - file: content/perceptron
 - file: content/mlp
+- file: content/entrainement
+- file: content/surapprentissage
 - file: content/convnets
 - file: content/glossaire

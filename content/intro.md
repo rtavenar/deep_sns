@@ -13,6 +13,7 @@ elles sont pensées pour des lectrices et lecteurs qui ne sont spécialistes ni 
 * ce que signifie « apprendre à partir de données » ;
 * ce qu'est un **neurone artificiel** et comment on règle ses paramètres grâce à la **descente de gradient** ;
 * comment on assemble des neurones en couches pour former un **perceptron multicouche** (_Multi-Layer Perceptron_, MLP), le réseau de neurones le plus simple ;
+* comment on **entraîne** un réseau (fonctions de perte, descente de gradient stochastique) et comment éviter qu'il n’**apprenne par cœur** ses données ;
 * comment fonctionnent les **réseaux convolutifs**, les modèles de référence pour traiter des images ;
 * comment déclarer ces réseaux en Python avec la bibliothèque `keras`.
 
@@ -23,7 +24,9 @@ Les chapitres sont courts et se lisent dans l'ordre :
 1. [Apprendre à partir de données](donnees.md) : le vocabulaire de base ;
 2. [Un premier neurone : le perceptron](perceptron.md) : un modèle minimal, et la façon dont on l'entraîne ;
 3. [Empiler des neurones : le perceptron multicouche](mlp.md) : notre premier vrai réseau de neurones ;
-4. [Traiter des images : les réseaux convolutifs](convnets.md) : des réseaux adaptés aux images.
+4. [Entraîner un réseau : pertes et optimisation](entrainement.md) : comment on règle concrètement les paramètres ;
+5. [Bien généraliser : le sur-apprentissage](surapprentissage.md) : comment éviter d'apprendre par cœur ;
+6. [Traiter des images : les réseaux convolutifs](convnets.md) : des réseaux adaptés aux images.
 
 Un [glossaire](glossaire.md) rassemble les termes importants, avec leur traduction anglaise (la plupart des ressources en ligne sont en anglais).
 

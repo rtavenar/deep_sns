@@ -5,14 +5,23 @@ Les termes sont classés par ordre alphabétique. Le terme anglais, que l'on ren
 **Activation (fonction d')** (_activation function_)
 : Transformation appliquée par un neurone au résultat de sa somme pondérée. Exemples : ReLU, sigmoïde, tanh, softmax. Voir [](sec:mlp).
 
+**Adam**
+: Variante de la descente de gradient stochastique, avec élan et pas adaptés à chaque paramètre. Bon choix par défaut. Voir [](sec:entrainement).
+
 **Apprentissage par transfert** (_transfer learning_)
 : Réutilisation d'un modèle pré-entraîné comme point de départ pour un nouveau problème, en remplaçant sa tête de classification. Voir [](sec:cnn).
 
 **Architecture**
 : La « forme » d'un réseau de neurones : nombre de couches, nombre de neurones par couche, fonctions d'activation.
 
+**Arrêt précoce** (_early stopping_)
+: Technique de régularisation qui arrête l'entraînement quand la perte de validation ne s'améliore plus. Voir [](sec:surapprentissage).
+
 **Biais** (_bias_)
 : Paramètre d'un neurone qui s'ajoute à la somme pondérée de ses entrées.
+
+**Callback**
+: Outil de `keras` qui intervient pendant l'entraînement (par exemple pour l'arrêt précoce).
 
 **Canal** (_channel_)
 : Une des « couches » de nombres qui composent une image : 1 canal pour une image en noir et blanc, 3 (rouge, vert, bleu) pour une image en couleur.
@@ -32,11 +41,23 @@ Les termes sont classés par ordre alphabétique. Le terme anglais, que l'on ren
 **Couche dense** (_dense layer_, _fully-connected layer_)
 : Couche dont chaque neurone est relié à tous les neurones de la couche précédente.
 
+**Courbes d'apprentissage** (_learning curves_)
+: Évolution de la perte (ou de l'accuracy) d'entraînement et de validation au fil des époques.
+
 **Descente de gradient** (_gradient descent_)
 : Méthode d'optimisation qui modifie les paramètres pas à pas, en suivant la pente de la fonction de perte vers le bas. Voir [](sec:perceptron).
 
+**Descente de gradient stochastique** (_Stochastic Gradient Descent_, SGD)
+: Descente de gradient dans laquelle la pente est estimée sur un mini-batch, ce qui permet de faire beaucoup de pas par époque. Voir [](sec:entrainement).
+
 **Entraînement** (_training_)
 : Recherche des valeurs des paramètres qui minimisent la fonction de perte sur le jeu d'entraînement. Synonyme : apprentissage, optimisation.
+
+**Entropie croisée** (_cross-entropy_)
+: Fonction de perte utilisée en classification : moyenne de $-\log(p)$, où $p$ est la probabilité donnée à la bonne classe. Voir [](sec:entrainement).
+
+**Époque** (_epoch_)
+: Un passage complet sur toutes les données d'entraînement.
 
 **Filtre** (_filter_, _kernel_)
 : Petit tableau de nombres (par exemple 3 × 3) utilisé dans une convolution. Ses valeurs sont des paramètres appris.
@@ -55,6 +76,12 @@ Les termes sont classés par ordre alphabétique. Le terme anglais, que l'on ren
 
 **Jeu d'entraînement / jeu de test** (_training set / test set_)
 : Partie des données utilisée pour régler les paramètres / partie mise de côté pour évaluer le modèle sur des exemples qu'il n'a jamais vus.
+
+**Jeu de validation** (_validation set_)
+: Partie des données d'entraînement mise de côté pour surveiller l'entraînement et faire des choix (architecture, nombre d'époques…).
+
+**Mini-batch**
+: Petit paquet d'exemples sur lequel on calcule un pas de descente de gradient stochastique.
 
 **MLP, perceptron multicouche** (_Multi-Layer Perceptron_)
 : Réseau de neurones formé d'une couche d'entrée, d'une ou plusieurs couches cachées denses et d'une couche de sortie.
@@ -86,20 +113,35 @@ Les termes sont classés par ordre alphabétique. Le terme anglais, que l'on ren
 **Pré-entraîné (modèle)** (_pre-trained model_)
 : Modèle déjà entraîné sur une grande base de données (par exemple ImageNet) et mis à disposition pour être réutilisé.
 
-**Réseau convolutif** (_Convolutional Neural Network_, CNN, ConvNet)
-: Réseau de neurones composé de couches de convolution et de pooling, suivies d'une tête de classification. Voir [](sec:cnn).
-
 **Régression** (_regression_)
 : Problème dans lequel la cible est un nombre.
 
+**Régularisation** (_regularization_)
+: Ensemble des techniques qui limitent le sur-apprentissage (plus de données, modèle plus petit, arrêt précoce…).
+
 **ReLU** (_Rectified Linear Unit_)
 : Fonction d'activation qui remplace les valeurs négatives par 0 et laisse les valeurs positives inchangées. Choix par défaut pour les couches cachées.
+
+**Réseau convolutif** (_Convolutional Neural Network_, CNN, ConvNet)
+: Réseau de neurones composé de couches de convolution et de pooling, suivies d'une tête de classification. Voir [](sec:cnn).
+
+**Rétropropagation** (_backpropagation_)
+: Algorithme qui calcule efficacement la pente de la perte par rapport à tous les paramètres d'un réseau. `keras` l'applique automatiquement.
 
 **Sigmoïde** (_sigmoid_)
 : Fonction d'activation qui produit une valeur entre 0 et 1. Utilisée en sortie pour la classification binaire.
 
 **Softmax** (_softmax_)
 : Fonction d'activation qui transforme une liste de scores en probabilités (positives, de somme 1). Utilisée en sortie pour la classification à plusieurs classes.
+
+**Sous-apprentissage** (_underfitting_)
+: Situation d'un modèle trop simple, qui prédit mal même sur ses données d'entraînement.
+
+**Standardisation**
+: Mise à l'échelle des variables : on soustrait la moyenne et on divise par l'écart-type, pour que toutes les variables soient comparables.
+
+**Sur-apprentissage** (_overfitting_)
+: Situation d'un modèle qui apprend par cœur ses données d'entraînement et généralise mal à de nouvelles données. Voir [](sec:surapprentissage).
 
 **Taux d'apprentissage** (_learning rate_)
 : Hyperparamètre qui règle la taille des pas de la descente de gradient.
