@@ -27,7 +27,7 @@ from notebook_utils import prepare_notebook_graphics, BLEU, ORANGE, VERT, GRIS
 prepare_notebook_graphics()
 ```
 
-Les perceptrons multicouches du [chapitre précédent](sec:mlp) fonctionnent bien sur des données **tabulaires**, où chaque individu est décrit par une liste de variables.
+Les perceptrons multicouches (voir le [chapitre 3](sec:mlp)) fonctionnent bien sur des données **tabulaires**, où chaque individu est décrit par une liste de variables.
 Pour les **images**, on utilise une autre famille de modèles, bien plus efficace : les **réseaux de neurones convolutifs** (_Convolutional Neural Networks_, CNN, ou _ConvNets_).
 C'est grâce à eux que les ordinateurs ont appris à reconnaître des objets, des visages ou des chiffres manuscrits.
 
@@ -264,7 +264,7 @@ Après plusieurs couches de convolution et de _pooling_, on obtient des cartes d
 Pour décider à quelle classe appartient l'image, on termine le réseau par un petit **MLP** (on parle de **tête de classification**) :
 
 1. une couche `Flatten` (« aplatir ») met toutes les valeurs des cartes d'activation bout à bout, pour en faire une simple liste de nombres ;
-2. une ou plusieurs couches `Dense`, comme dans le chapitre précédent, produisent la prédiction finale (avec une activation softmax pour la classification à plusieurs classes).
+2. une ou plusieurs couches `Dense`, comme dans un MLP, produisent la prédiction finale (avec une activation softmax pour la classification à plusieurs classes).
 
 ## Un exemple complet : LeNet
 
@@ -311,7 +311,39 @@ On peut les utiliser de deux façons :
 * **tels quels**, si les catégories qu'ils connaissent correspondent à notre problème ;
 * comme **point de départ** pour un nouveau problème : on garde les couches de convolution, qui ont appris à détecter des motifs visuels très généraux (contours, textures, formes…), et on remplace seulement la tête de classification par une nouvelle, adaptée à nos classes. C'est ce qu'on appelle l’**apprentissage par transfert** (_transfer learning_), ou le **_fine-tuning_** lorsqu'on ré-entraîne aussi, légèrement, les couches de convolution.
 
-Cette approche permet d'obtenir de très bons résultats avec seulement quelques centaines d'images. Nous la mettrons en pratique en TP.
+Cette approche permet d'obtenir de très bons résultats avec seulement quelques centaines d'images.
+
+### L'apprentissage par transfert en pratique
+
+En `keras`, de nombreux modèles pré-entraînés sur ImageNet sont disponibles dans le module `keras.applications`.
+Voici comment construire un classifieur « chat ou chien » à partir du modèle **MobileNetV2**, un réseau convolutif léger :
+
+```python
+from keras.applications import MobileNetV2
+
+# 1. on charge les couches de convolution pré-entraînées, sans leur tête de classification
+base = MobileNetV2(weights="imagenet", include_top=False, pooling="avg",
+                   input_shape=(160, 160, 3))
+
+# 2. on les « gèle » : leurs paramètres ne seront pas modifiés pendant l'entraînement
+base.trainable = False
+
+# 3. on ajoute une nouvelle tête de classification, adaptée à notre problème
+model = Sequential([
+    Input(shape=(160, 160, 3)),
+    base,
+    Dense(units=1, activation="sigmoid")   # chat (0) ou chien (1)
+])
+model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+```
+
+* `include_top=False` retire la tête de classification d'origine (qui prédisait les 1 000 catégories d'ImageNet) ;
+* `pooling="avg"` résume chaque carte d'activation finale par sa moyenne, ce qui remplace la couche `Flatten` ;
+* **geler** les couches pré-entraînées (`base.trainable = False`) permet de n'entraîner que la nouvelle tête : il y a alors très peu de paramètres à apprendre, ce qui limite le sur-apprentissage quand on a peu d'images.
+
+On peut ensuite, si on le souhaite, « dégeler » les couches pré-entraînées et poursuivre l'entraînement de tout le réseau avec un **très petit** taux d'apprentissage (par exemple $10^{-5}$) : c'est le _fine-tuning_.
+
+Nous mettrons tout cela en pratique en TP.
 
 ## Et pour d'autres types de données ?
 

@@ -68,6 +68,9 @@ Les termes sont classés par ordre alphabétique. Le terme anglais, que l'on ren
 **Flatten** (« aplatir »)
 : Couche qui met toutes les valeurs des cartes d'activation bout à bout, pour pouvoir les donner à des couches denses.
 
+**Geler des couches** (_freeze_)
+: Empêcher la modification des paramètres de certaines couches pendant l'entraînement (`trainable = False`), par exemple pour réutiliser un modèle pré-entraîné. Voir [](sec:cnn).
+
 **Gradient** (_gradient_)
 : Ensemble des pentes de la fonction de perte par rapport à chacun des paramètres. Il indique dans quelle direction la perte augmente le plus vite.
 
